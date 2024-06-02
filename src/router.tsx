@@ -7,6 +7,7 @@ import BookPage from "./pages/BookPage";
 import Dash from "./pages/Dash";
 import NavbarLayout from "./Layouts/NavbarLayout";
 import PyqPage from "./pages/PyqPage";
+import AddBook from "./pages/AddBook";
 
 const router = createBrowserRouter([
   {
@@ -41,6 +42,10 @@ const router = createBrowserRouter([
           {
             path:'pyq',
             element:<PyqPage/>
+          },
+          {
+            path:'books/add',
+            element:<AddBook/>
           }
         ],
       },

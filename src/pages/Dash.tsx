@@ -1,11 +1,16 @@
 import { Button } from "@/components/ui/button";
 
+
+
 const Dash = () => {
+
+
+
   return (
    <>
 
 <div className="flex items-center">
-              <h1 className="text-lg font-semibold md:text-2xl">Inventory</h1>
+              <h1 className="text-lg font-semibold md:text-2xl">Books</h1>
             </div>
             <div
               className="flex flex-1 items-center justify-center rounded-lg border border-dashed shadow-sm"
@@ -16,9 +21,12 @@ const Dash = () => {
                   You have no Books
                 </h3>
                 <p className="text-sm text-muted-foreground">
-                  You can start selling as soon as you add a Book.
+                  You can Uploading Books Now!!
                 </p>
+               
                 <Button className="mt-4">Add Book</Button>
+               
+               
               </div>
               </div>
    

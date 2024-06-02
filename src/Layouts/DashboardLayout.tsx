@@ -1,4 +1,4 @@
-import { Link, Navigate, Outlet } from "react-router-dom";
+import { Link, Navigate, Outlet,NavLink } from "react-router-dom";
 import {
   Bell,
   BookUser,
@@ -25,11 +25,21 @@ import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import useTokenStore from "@/store";
 
 const DashboardLayout = () => {
-  const token = useTokenStore((state) => state.token);
+  const {token , setToken} = useTokenStore((state) => state);
 
   if (!token) {
     return <Navigate to={"/"} replace />;
   }
+
+  const handleLogout = ()=>{
+
+    setToken('')
+
+    
+
+  }
+
+
 
   return (
     <>
@@ -48,27 +58,36 @@ const DashboardLayout = () => {
             </div>
             <div className="flex-1">
               <nav className="grid items-start px-2 text-sm font-medium lg:px-4">
-                <Link
+                <NavLink
                   to={"/dashboard/dash"}
-                  className="flex items-center gap-3 rounded-lg px-3 py-2 text-muted-foreground transition-all hover:text-primary"
+                  className={({isActive})=>{
+                    return `flex items-center gap-3 rounded-lg  px-3 py-2 text-primary transition-all hover:text-primary ${isActive && 'bg-muted'}`
+
+                  }}
                 >
                   <Home className="h-4 w-4" />
                   Home
-                </Link>
-                <Link
+                </NavLink>
+                <NavLink
                   to={"/dashboard/books"}
-                  className="flex items-center gap-3 rounded-lg px-3 py-2 text-muted-foreground transition-all hover:text-primary"
+                  className={({isActive})=>{
+                    return `flex items-center gap-3 rounded-lg  px-3 py-2 text-primary transition-all hover:text-primary ${isActive && 'bg-muted'}`
+
+                  }}
                 >
                   <BookUser className="h-4 w-4" />
                   Books
-                </Link>
-                <Link
+                </NavLink>
+                <NavLink
                   to={"/dashboard/pyq"}
-                  className="flex items-center gap-3 rounded-lg bg-muted px-3 py-2 text-primary transition-all hover:text-primary"
+                  className={({isActive})=>{
+                    return `flex items-center gap-3 rounded-lg  px-3 py-2 text-primary transition-all hover:text-primary ${isActive && 'bg-muted'}`
+
+                  }}
                 >
                   <NotepadText className="h-4 w-4" />
                   PYQs{" "}
-                </Link>
+                </NavLink>
               </nav>
             </div>
           </div>
@@ -88,34 +107,43 @@ const DashboardLayout = () => {
               </SheetTrigger>
               <SheetContent side="left" className="flex flex-col">
                 <nav className="grid gap-2 text-lg font-medium">
-                  <Link
+                  <NavLink
                     to={"/"}
                     className="flex items-center gap-2 text-lg font-semibold"
                   >
                     <Package2 className="h-6 w-6" />
                     <span className="sr-only">College Hub</span>
-                  </Link>
-                  <Link
+                  </NavLink>
+                  <NavLink
                     to={"/dashboard/dash"}
-                    className="mx-[-0.65rem] flex items-center gap-4 rounded-xl px-3 py-2 text-muted-foreground hover:text-foreground"
+                    className={({isActive})=>{
+                      return `mx-[-0.65rem] flex items-center gap-4 rounded-xl px-3 py-2 text-muted-foreground hover:text-foreground ${isActive && 'bg-muted'}`
+
+                    }}
                   >
                     <Home className="h-5 w-5" />
                     Home
-                  </Link>
-                  <Link
+                  </NavLink>
+                  <NavLink
                     to={"/dashboard/books"}
-                    className="mx-[-0.65rem] flex items-center gap-4 rounded-xl bg-muted px-3 py-2 text-foreground hover:text-foreground"
+                    className={({isActive})=>{
+                      return `mx-[-0.65rem] flex items-center gap-4 rounded-xl px-3 py-2 text-muted-foreground hover:text-foreground ${isActive && 'bg-muted'}`
+
+                    }}
                   >
                     <BookUser className="h-5 w-5" />
                     Books
-                  </Link>
-                  <Link
+                  </NavLink>
+                  <NavLink
                     to={"/dashboard/pyq"}
-                    className="mx-[-0.65rem] flex items-center gap-4 rounded-xl px-3 py-2 text-muted-foreground hover:text-foreground"
+                    className={({isActive})=>{
+                      return `mx-[-0.65rem] flex items-center gap-4 rounded-xl px-3 py-2 text-muted-foreground hover:text-foreground ${isActive && 'bg-muted'}`
+
+                    }}
                   >
                     <NotepadText className="h-5 w-5" />
                     PYQs
-                  </Link>
+                  </NavLink>
                 </nav>
               </SheetContent>
             </Sheet>
@@ -125,7 +153,7 @@ const DashboardLayout = () => {
                   <Search className="absolute left-2.5 top-2.5 h-4 w-4 text-muted-foreground" />
                   <Input
                     type="search"
-                    placeholder="Search products..."
+                    placeholder="Search Books & PYQs..."
                     className="w-full appearance-none bg-background pl-8 shadow-none md:w-2/3 lg:w-1/3"
                   />
                 </div>
@@ -148,7 +176,11 @@ const DashboardLayout = () => {
                 <DropdownMenuItem>Settings</DropdownMenuItem>
                 <DropdownMenuItem>Support</DropdownMenuItem>
                 <DropdownMenuSeparator />
-                <DropdownMenuItem>Logout</DropdownMenuItem>
+                <DropdownMenuItem>
+                  <Button onClick={handleLogout} variant={'destructive'}>
+                    LogOut
+                  </Button>
+                </DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>
           </header>
